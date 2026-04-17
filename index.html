@@ -12,9 +12,23 @@ body{
     color:white;
     scroll-behavior:smooth;
     overflow-x:hidden;
+    cursor:none; /* hide default cursor */
 }
 
-/* FULLSCREEN VIDEO BG */
+/* CUSTOM CURSOR */
+.cursor{
+    width:20px;
+    height:20px;
+    border:2px solid cyan;
+    border-radius:50%;
+    position:fixed;
+    pointer-events:none;
+    transform:translate(-50%,-50%);
+    z-index:999;
+    box-shadow:0 0 15px cyan;
+}
+
+/* VIDEO BG */
 .video-bg{
     position:fixed;
     top:0;
@@ -35,7 +49,7 @@ body{
     pointer-events:none;
 }
 
-/* DARK OVERLAY */
+/* OVERLAY */
 body::after{
     content:"";
     position:fixed;
@@ -45,7 +59,7 @@ body::after{
     z-index:-1;
 }
 
-/* NAVBAR */
+/* NAV */
 nav{
     position:fixed;
     width:100%;
@@ -128,10 +142,11 @@ section{
 .btn:hover{
     background:red;
     color:white;
-    box-shadow:0 0 20px red;
+    box-shadow:0 0 25px red;
+    transform:scale(1.05);
 }
 
-/* GAMING CARDS */
+/* GAME CARDS */
 .game{
     margin:15px;
     padding:20px;
@@ -145,7 +160,7 @@ section{
 
 .game:hover{
     transform:scale(1.1);
-    box-shadow:0 0 25px cyan;
+    box-shadow:0 0 30px cyan;
 }
 
 .game img{
@@ -162,7 +177,15 @@ section{
 
 <body>
 
-<!-- VIDEO BACKGROUND -->
+<!-- MUSIC -->
+<audio id="music" loop>
+<source src="https://www.bensound.com/bensound-music/bensound-dubstep.mp3" type="audio/mp3">
+</audio>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+
+<!-- VIDEO -->
 <div class="video-bg">
 <iframe src="https://www.youtube.com/embed/JBoUwElRFVM?autoplay=1&mute=1&loop=1&playlist=JBoUwElRFVM&controls=0"></iframe>
 </div>
@@ -182,7 +205,7 @@ section{
 <div id="time"></div>
 <div id="date"></div>
 
-<button class="btn" onclick="openYT()">Start</button>
+<button class="btn" onclick="startAll()">Start</button>
 
 </section>
 
@@ -225,10 +248,19 @@ function updateTime(){
 }
 setInterval(updateTime,1000);
 
-// YOUTUBE BUTTON
-function openYT(){
+// START BUTTON (MUSIC + YT)
+function startAll(){
+    document.getElementById("music").play();
     window.open("https://www.youtube.com/@you_know_abhi","_blank");
 }
+
+// CURSOR MOVE
+let cursor=document.getElementById("cursor");
+
+document.addEventListener("mousemove",e=>{
+    cursor.style.left=e.clientX+"px";
+    cursor.style.top=e.clientY+"px";
+});
 
 </script>
 
